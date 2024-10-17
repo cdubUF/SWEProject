@@ -5,6 +5,9 @@ import React, { useState } from 'react';
 // Will be filled with user information and posts
 // Dependent on user data to display bio, profile picture, posts, and follower counts.
 
+// To Do:
+//     a button that say login, goals and miletonse, profile page
+
 
 function Profile() {
     const [isFollowing, setIsFollowing] = useState(false);
