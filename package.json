@@ -1,0 +1,19 @@
+{
+  "name": "sweproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../fit-sync && npm install",
+    "backend": "cd backend && npm start",
+    "frontend": "cd fit-sync && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "setup-and-start": "npm install && npm run install-all && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
