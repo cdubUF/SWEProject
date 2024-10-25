@@ -20,6 +20,7 @@ const SignUp = () => {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    style={{ margin: '10px 0', padding: '10px', width: '200px' }}
                 />
             </div>
             <div>
@@ -28,9 +29,10 @@ const SignUp = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    style={{ margin: '10px 0', padding: '10px', width: '200px' }}
                 />
             </div>
-            <button onClick={handleSignUp}>Sign Up</button>
+            <button style={{ marginTop: '20px', padding: '10px 20px' }} onClick={handleSignUp}>Sign Up</button>
         </div>
     );
 };
