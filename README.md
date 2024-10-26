@@ -15,6 +15,18 @@ FitSync is a web application designed to help users track and manage their fitne
 - MongoDB Atlas account (for database access)
 - Modern web browser (Chrome, Firefox, Safari, etc.)
 
+### Environment Setup
+1. Navigate to the backend directory
+2. Copy `.env.example` to create a new `.env` file:
+```bash
+cp .env.example .env
+```
+3. Update the .env file with the required credentials:
+- MONGODB_URL: The team's shared MongoDB Atlas connection string
+- JWT_SECRET: The team's shared JWT secret
+
+Note: Contact the project administrator or backend manager for the actual MONGODB_URL and JWT_SECRET values. These sensitive credentials are shared privately among team members for security reasons.
+
 ### First Time Setup
 1. Clone the repository
 2. Navigate to the root directory

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const { generateToken } = require('../config/jwt');
 
 // CREATE - POST /api/users
 router.post('/', async (req, res) => {
@@ -12,6 +13,43 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(400).json({ message: error.message });
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // Find user by username
+        const user = await User.findOne({ username });
+
+        // If user doesn't exist
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid username or password' });
+        }
+
+        // Use comparePassword method to check if password matches
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid username or password' });
+        }
+
+        // Generate token
+        const token = generateToken(user._id);
+
+        // Login successful
+        res.json({ 
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                username: user.username
+            }
+        });
+
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Server error during login' });
     }
 });
 
