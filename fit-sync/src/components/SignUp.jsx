@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import '../index.css';
 
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const [message, setMessage] = useState('');
+    
     const handleSignUp = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/users', {
@@ -44,28 +53,35 @@ const SignUp = () => {
     };
 
     return (
-        <div>
+        <div className="signup-container">
             <h1>Create FitSync account</h1>
             {message && <p style={messageStyle}>{message}</p>}
-            <div>
+            <div className='input-container'>
                 <input
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    style={{ margin: '10px 0', padding: '10px', width: '200px' }}
+                    className="signup-input"
                 />
             </div>
-            <div>
+            
+            <div className="password-container">
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{ margin: '10px 0', padding: '10px', width: '200px' }}
+                    className="signup-input"
+                />
+                <FontAwesomeIcon
+                    icon={showPassword ? faEyeSlash : faEye}
+                    className="eye-icon"
+                    onClick={togglePasswordVisibility}
                 />
             </div>
-            <button style={{ marginTop: '20px', padding: '10px 20px' }} onClick={handleSignUp}>Sign Up</button>
+            
+            <button className="signup-button" onClick={handleSignUp}>Sign Up</button>
         </div>
     );
 };
