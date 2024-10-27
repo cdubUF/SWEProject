@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function LogIn() {
     const [username, setUsername] = useState('');
@@ -8,6 +10,12 @@ function LogIn() {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const { login } = useAuth();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleLogin = async () => {
         try {
@@ -45,36 +53,36 @@ function LogIn() {
         marginTop: '10px',
         color: message.includes('successful') ? 'green' : 'red'
     };
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
+        <div className="login-container">
             <h1>Log into FitSync</h1>
-            <input 
-                type="text" 
-                placeholder="Username" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                style={{ margin: '10px 0', padding: '10px', width: '200px' }} 
-            />
-            <input 
-                type="password" 
-                placeholder="Password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{ margin: '10px 0', padding: '10px', width: '200px' }} 
-            />
-            <button 
-                onClick={handleLogin}
-                style={{ marginTop: '20px', padding: '10px 20px' }}
-            >
-                Log In
-            </button>
+            <div className='input-container'>
+                <input type="text" placeholder="Username" className="login-input" value={username}
+                onChange={(e) => setUsername(e.target.value)} />
+            </div>
+            
+            <div className="password-container">
+                <input 
+                    type={showPassword ? "text" : "password"} 
+                    placeholder="Password" 
+                    className="login-input" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <FontAwesomeIcon 
+                    icon={showPassword ? faEyeSlash : faEye} 
+                    className="eye-icon" 
+                    onClick={togglePasswordVisibility} 
+                />
+            </div>
+            
+            <button onClick={handleLogin} className="login-button">Log In</button>
             {message && <p style={messageStyle}>{message}</p>}
-            <p style={{ marginTop: '20px' }}>
+            <p>
                 Don't have an account? <a href="/signup">Sign Up!</a>
             </p>
         </div>
     );
-};
+}
 
 export default LogIn;
