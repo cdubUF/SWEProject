@@ -24,7 +24,7 @@ function Profile() {
         <div className="profile-page">
             <div className="profile-header">
 
-                {/* save profile img url and put here */}
+                {/* Insert image url */}
                 <img src="https://picsum.photos/200" alt="Profile" className="profile-pic" />
 
                 <h1 className="profile-name">
