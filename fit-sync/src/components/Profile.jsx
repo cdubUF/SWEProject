@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './Profile.css';
 
 
 // Progile page for user
@@ -11,6 +12,9 @@ import React, { useState } from 'react';
 
 function Profile() {
     const [isFollowing, setIsFollowing] = useState(false);
+    const [followerCount, setFollowerCount] = useState(0);
+
+    // Use useeffect to fetch name, follower count, image, and bio from database
 
     const handleFollowToggle = () => {
         setIsFollowing(!isFollowing);
@@ -19,18 +23,20 @@ function Profile() {
     return (
         <div className="profile-page">
             <div className="profile-header">
-                
+
+                {/* save profile img url and put here */}
                 <img src="https://picsum.photos/200" alt="Profile" className="profile-pic" />
-                
-                <h1 className="profile-name">User Name</h1>
+
+                <h1 className="profile-name">
+                    {"Insert name here"}
+                </h1>
                 
                 <p className="profile-bio">
-                    This is a short bio about the user. 
+                    {"Insert bio here"} 
                 </p>
 
                 <p className="follower-count">
-                    {/* Follower Count */}
-                    Insert Follower Count
+                    Followers: {followerCount}
                 </p>
 
                 <button onClick={handleFollowToggle} className="follow-btn">
@@ -41,14 +47,18 @@ function Profile() {
                 <button className="message-btn">
                     Message
                 </button>
-            
+                <button className='goals-btn'>
+                    Create Goals
+                </button>
+            </div>
+
+            <div className="profile-goals">
+                <h1>Goals</h1>
             </div>
 
             <div className="profile-posts">
-                {/* User's posts will go here */}
-                Posts go here
+                <h1>Posts</h1>
             </div>
-
         </div>
     );
 };

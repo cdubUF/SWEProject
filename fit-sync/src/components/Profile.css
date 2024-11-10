@@ -1,0 +1,31 @@
+.profile-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 30%;
+}
+
+.profile-header button {
+    margin-top: 10px;
+}
+
+.profile-posts {
+    width: 65%;
+}
+
+.profile-goals {
+    width: 65%;
+}

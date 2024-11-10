@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 // import './Home.css'; // Make sure to create a corresponding CSS file for styling
 
 function Home() {
@@ -15,7 +15,8 @@ function Home() {
         <div className="home-container">
             <h1>Welcome, {user?.username}!</h1>
             <div className="ribbon">
-                <button className="ribbon-button">Profile</button>
+                <Link to="/profile"><button className="ribbon-button">Profile</button></Link>
+                
                 <button className="ribbon-button">Create Post</button>
             </div>
             <div className="posts-container">
