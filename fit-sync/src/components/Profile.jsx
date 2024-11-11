@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import GoalComp from './GoalComp';
 
 
 // Progile page for user
@@ -54,6 +55,9 @@ function Profile() {
 
             <div className="profile-goals">
                 <h1>Goals</h1>
+                <div className="goal-list">
+                    <GoalComp/>
+                </div>
             </div>
 
             <div className="profile-posts">
