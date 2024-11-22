@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 import './GoalComp.jsx';
 import GoalComp from './GoalComp.jsx';
 
@@ -8,8 +10,15 @@ import GoalComp from './GoalComp.jsx';
 // Data for name, bio, profile picture, and follower count are fetched from a database
 
 function Profile() {
+    const { token } = useAuth();
     const [isFollowing, setIsFollowing] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
+
+    // Redirect to login if not authenticated
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
+
     const [userData, setUserData] = useState({
         name: 'Insert name here',
         bio: 'Insert bio here',
@@ -55,6 +64,21 @@ function Profile() {
                 <h1 className="profile-name">{userData.name}</h1>
                 <p className="profile-bio">{userData.bio}</p>
                 <p className="follower-count">Followers: {followerCount}</p>
+
+                {/* Insert image url */}
+                <img src="https://picsum.photos/200" alt="Profile" className="profile-pic" />
+
+                <h1 className="profile-name">
+                    {"Insert name here"}
+                </h1>
+                
+                <p className="profile-bio">
+                    {"Insert bio here"} 
+                </p>
+
+                <p className="follower-count">
+                    Followers: {followerCount}
+                </p>
 
                 <button onClick={handleFollowToggle} className="follow-btn">
                     {isFollowing ? 'Unfollow' : 'Follow'}
