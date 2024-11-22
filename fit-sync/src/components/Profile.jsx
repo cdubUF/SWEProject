@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import './GoalComp.jsx';
+import GoalComp from './GoalComp.jsx';
 
 // Profile page for user
 // Displays user information, goals, posts, and follower count
@@ -64,13 +66,9 @@ function Profile() {
 
             <div className="profile-goals">
                 <h2>Goals</h2>
-                <ul>
-                    {goals.length > 0 ? (
-                        goals.map(goal => <li key={goal.id}>{goal.text}</li>)
-                    ) : (
-                        <p>No goals set yet.</p>
-                    )}
-                </ul>
+                <div className="goal-container">
+                {goals.length > 0 ? <GoalComp /> : <p>No goals set yet.</p>}  
+                </div>
             </div>
 
             <div className="profile-posts">
