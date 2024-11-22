@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import GoalComp from './GoalComp';
+import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 
 // Progile page for user
@@ -12,8 +14,15 @@ import GoalComp from './GoalComp';
 
 
 function Profile() {
+    const { token } = useAuth();
     const [isFollowing, setIsFollowing] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
+
+    // Redirect to login if not authenticated
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
+
 
     // Use useeffect to fetch name, follower count, image, and bio from database
 
