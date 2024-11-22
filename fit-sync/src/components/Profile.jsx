@@ -14,11 +14,6 @@ function Profile() {
     const [isFollowing, setIsFollowing] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
 
-    // Redirect to login if not authenticated
-    if (!token) {
-        return <Navigate to="/login" />;
-    }
-
     const [userData, setUserData] = useState({
         name: 'Insert name here',
         bio: 'Insert bio here',
@@ -56,6 +51,11 @@ function Profile() {
         setIsFollowing(!isFollowing);
         setFollowerCount(isFollowing ? followerCount - 1 : followerCount + 1);
     };
+
+    // Redirect to login if not authenticated
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
 
     return (
         <div className="profile-page">
