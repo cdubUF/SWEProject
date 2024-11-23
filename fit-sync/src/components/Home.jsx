@@ -17,7 +17,7 @@ function Home() {
             <div className="ribbon">
                 <Link to="/profile"><button className="ribbon-button">Profile</button></Link>
                 
-                <button className="ribbon-button">Create Post</button>
+                <Link to="/createPost"><button className="ribbon-button">Create Post</button></Link>
             </div>
             <div className="posts-container">
                 {/* Example posts, replace with dynamic content as needed */}
