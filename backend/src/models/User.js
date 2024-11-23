@@ -9,10 +9,16 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
-  }
-}, {
-  timestamps: true
+    required: true,
+    validate: {
+      validator: (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+      },
+      message: 'Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+  },
+}, 
+  timestamps: {}
 });
 
 // Hash password before storing
