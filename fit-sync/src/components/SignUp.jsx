@@ -35,7 +35,11 @@ const SignUp = () => {
             } else {
                 if (data.message.includes('duplicate key error')) {
                     setMessage(`Username "${username}" already exists! Please choose another username.`);
-                } else {
+                } 
+                else if(data.message.includes('Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character')) {
+                    setMessage('Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+                }
+                else {
                     setMessage('Sign up failed. Please try again.');
                 }
                 console.error('Sign up failed:', data.message);

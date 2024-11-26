@@ -65,20 +65,7 @@ function Profile() {
                 <p className="profile-bio">{userData.bio}</p>
                 <p className="follower-count">Followers: {followerCount}</p>
 
-                {/* Insert image url */}
-                <img src="https://picsum.photos/200" alt="Profile" className="profile-pic" />
-
-                <h1 className="profile-name">
-                    {"Insert name here"}
-                </h1>
                 
-                <p className="profile-bio">
-                    {"Insert bio here"} 
-                </p>
-
-                <p className="follower-count">
-                    Followers: {followerCount}
-                </p>
 
                 <button onClick={handleFollowToggle} className="follow-btn">
                     {isFollowing ? 'Unfollow' : 'Follow'}
