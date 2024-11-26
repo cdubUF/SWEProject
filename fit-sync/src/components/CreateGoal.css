@@ -1,0 +1,23 @@
+/* CreateGoal.css */
+
+.title,
+.description,
+.date {
+  margin-bottom: 30px;
+}
+
+.title-input,
+.description-input,
+.date-input {
+  width: 100%;
+  padding: 25px 20px; /* Increased vertical padding */
+  margin: 8px 0;
+  display: inline-block;
+  border: 5px solid #FF6D00;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  background-color: #424242;
+  color: #FFFFFF;
+  outline: none;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './GoalComp.jsx';
 import GoalComp from './GoalComp.jsx';
 
@@ -85,7 +85,8 @@ function Profile() {
                 </button>
                 
                 <button className="message-btn">Message</button>
-                <button className="goals-btn">Create Goals</button>
+                <Link to="/profile/creategoal"><button className="goals-btn">Create Goals</button></Link>
+                
             </div>
 
             <div className="profile-goals">
