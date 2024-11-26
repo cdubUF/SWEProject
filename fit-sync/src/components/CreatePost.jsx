@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import './CreatePost.css'; 
+import { useAuth } from '../context/AuthContext';
+import './CreatePost.css';
 
-function CreatePost() {
+function CreatePost() { // Accept userId as a prop
+
+    const { user } = useAuth();
+    const userId = user.id;
+
     const [caption, setCaption] = useState('');
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
@@ -21,6 +26,12 @@ function CreatePost() {
     };
 
     const handleSubmit = async () => {
+            console.log("User ID being sent:", userId);
+
+        if (!userId) {
+            setMessage("User ID is missing. Please log in again.");
+            return;
+        }
         if (!caption || !file) {
             setMessage('Please provide both a caption and a file.');
             return;
@@ -29,6 +40,7 @@ function CreatePost() {
         const formData = new FormData();
         formData.append('caption', caption);
         formData.append('file', file);
+        formData.append('userId', userId); // Include userId in the request
 
         try {
             const response = await fetch('http://localhost:5000/api/posts', {
