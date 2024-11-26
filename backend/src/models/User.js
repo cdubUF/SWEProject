@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { goalSchema } = require('./Goal');
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema(
           "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character",
       },
     },
+    goals: [goalSchema], // Embed goals array
   },
   {
     timestamps: true, // Enable createdAt and updatedAt timestamps
