@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { useNavigate , Navigate} from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './CreateGoal.css';
 
@@ -8,6 +8,7 @@ const CreateGoal = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [targetDate, setTargetDate] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const CreateGoal = () => {
         setTitle('');
         setDescription('');
         setTargetDate('');
+        navigate('/profile');
     };
 
     // Redirect to login if not authenticated
@@ -64,7 +66,7 @@ const CreateGoal = () => {
                         required
                     />
                 </div>
-                <Link to="/profile"><button type="submit">Create Goal</button></Link>
+                <button type="submit">Create Goal</button>
             </form>
         </div>
     );

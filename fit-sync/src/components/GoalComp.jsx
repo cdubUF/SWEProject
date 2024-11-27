@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GoalComp.css';
 
-const GoalComp = ({ name, description, targetDate }) => {
+const GoalComp = ({ name = 'N/A', description = 'N/A', targetDate = 'N/A' }) => {
     return (
         <div className="goal-comp">
             <h2>{name}</h2>
@@ -13,15 +13,9 @@ const GoalComp = ({ name, description, targetDate }) => {
 };
 
 GoalComp.propTypes = {
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    targetDate: PropTypes.string.isRequired,
-};
-
-GoalComp.defaultProps = {
-    name: 'N/A',
-    description: 'N/A',
-    targetDate: 'N/A',
+    name: PropTypes.string,
+    description: PropTypes.string,
+    targetDate: PropTypes.string,
 };
 
 export default GoalComp;
