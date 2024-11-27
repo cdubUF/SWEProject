@@ -4,8 +4,8 @@ const express = require('express');
 const connectDB = require('./src/config/db');
 const cors = require('cors');
 const userRoutes = require('./src/routes/userRoutes');
-require('dotenv').config();
-
+const postRoutes = require('./src/routes/postRoutes');
+const goalRoutes = require('./src/routes/goalRoutes');
 const app = express();
 
 // Connect to MongoDB
@@ -17,6 +17,11 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use("/api/posts", postRoutes);
+app.use('/api/users', goalRoutes);
+
+app.use("/uploads", express.static("./src/uploads"));
+
 
 // Basic route for testing
 app.get('/api/test', (req, res) => {
