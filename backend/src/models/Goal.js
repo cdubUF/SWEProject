@@ -18,6 +18,7 @@ const goalSchema = new mongoose.Schema(
         dueDate: {
             type: Date,
             required: true,
+            set: d => new Date(d.setHours(24, 0, 0, 0))
         },
         dateAdded: {
             type: Date,

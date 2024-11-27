@@ -6,6 +6,13 @@
   margin-bottom: 30px;
 }
 
+.validation-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: block;
+}
+
 .title-input,
 .description-input,
 .date-input {
