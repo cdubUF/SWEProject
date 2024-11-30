@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link, Navigate } from 'react-router-dom';
 import GoalComp from './GoalComp.jsx';
 
+
 // Profile page for user
 // Displays user information, goals, posts, and follower count
 // Data for name, bio, profile picture, and follower count are fetched from a database
@@ -19,9 +20,11 @@ function Profile() {
         profileImg: 'https://picsum.photos/200',
     });
     const [goals, setGoals] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]); // Added state for posts
+    const [showPosts, setShowPosts] = useState(false); // Added state to control visibility
+    const [loadingPosts, setLoadingPosts] = useState(false); // Added state for loading
+    const [postError, setPostError] = useState(null); // Added state for errors
 
-    
     useEffect(() => {
         const fetchUserData = async () => {
             if (!user || !user.id) return;
@@ -41,11 +44,7 @@ function Profile() {
                 });
                 setFollowerCount(150); // follower count for now
                 
-                // Fetch posts from database
-                setPosts([
-                    { id: 1, content: 'My first post!' },
-                    { id: 2, content: 'Another exciting update!' }
-                ]);
+                // Fetch posts from database (removed hardcoded data)
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -53,6 +52,33 @@ function Profile() {
 
         fetchUserData();
     }, [user]);
+
+    // Function to fetch posts from backend
+    const fetchUserPosts = async () => {
+        if (!user || !user.id) return;
+
+        try {
+            setLoadingPosts(true);
+            setPostError(null); // Reset error state
+            const response = await fetch(`http://localhost:5000/api/posts/my-posts/${user.id}`);
+            if (!response.ok) throw new Error('Failed to fetch posts.');
+            const postData = await response.json();
+            setPosts(postData.posts);
+        } catch (error) {
+            console.error('Error fetching user posts:', error);
+            setPostError('Failed to load posts. Please try again later.');
+        } finally {
+            setLoadingPosts(false);
+        }
+    };
+
+    // Function to handle the "My Posts" button
+    const handleShowPosts = () => {
+        setShowPosts(!showPosts); // Toggle visibility
+        if (!showPosts && posts.length === 0) {
+            fetchUserPosts(); // Fetch posts if not already fetched
+        }
+    };
 
     const handleFollowToggle = () => {
         setIsFollowing(!isFollowing);
@@ -72,15 +98,17 @@ function Profile() {
                 <p className="profile-bio">{userData.bio}</p>
                 <p className="follower-count">Followers: {followerCount}</p>
 
-                
-
                 <button onClick={handleFollowToggle} className="follow-btn">
                     {isFollowing ? 'Unfollow' : 'Follow'}
                 </button>
                 
                 <button className="message-btn">Message</button>
                 <Link to="/profile/creategoal"><button className="goals-btn">Create Goals</button></Link>
-                
+
+                {/* My Posts button */}
+                <button onClick={handleShowPosts} className="my-posts-btn">
+                    {showPosts ? 'Hide My Posts' : 'Show My Posts'}
+                </button>
             </div>
 
             <div className="profile-goals">
@@ -96,16 +124,37 @@ function Profile() {
                 </div>
             </div>
 
-            <div className="profile-posts">
-                <h2>Posts</h2>
-                <ul>
-                    {posts.length > 0 ? (
-                        posts.map(post => <li key={post.id}>{post.content}</li>)
+            {/* Posts section */}
+            {showPosts && (
+                <div className="profile-posts">
+                    <h2>My Posts</h2>
+                    {loadingPosts ? (
+                        <p>Loading posts...</p>
+                    ) : postError ? (
+                        <p>{postError}</p>
+                    ) : posts.length > 0 ? (
+                        <ul>
+                            {posts.map((post) => (
+                                <li key={post._id}>
+                                    <p>{post.caption}</p>
+                                    <img src={`http://localhost:5000/uploads/${post.file}`} 
+                                         alt={post.caption}
+                                         style={{
+                                            maxWidth: '100%',
+                                            height: 'auto',
+                                            display: 'block',
+                                            margin: '10px auto',
+                                            borderRadius: '5px',
+                                            }}/>
+                                    <p>Likes: {post.likesCount} | Comments: {post.commentsCount}</p>
+                                </li>
+                            ))}
+                        </ul>
                     ) : (
                         <p>No posts yet.</p>
                     )}
-                </ul>
-            </div>
+                </div>
+            )}
         </div>
     );
 }

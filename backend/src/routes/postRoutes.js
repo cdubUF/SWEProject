@@ -5,6 +5,11 @@ const User = require('../models/User');
 
 const router = express.Router();
 
+const path = require('path');
+const app = express();
+
+// Serve the uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create a Post
 router.post('/', multer.single('file'), async (req, res) => {
@@ -143,5 +148,29 @@ router.delete('/:postId', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Fetch Posts for a specific User ID (My Posts)
+router.get('/my-posts/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Fetch posts from the database associated with the user
+    const userPosts = await Post.find({ user: userId })
+      .sort({ createdAt: -1 }) // Sort by most recent
+      .populate('user', 'username') // Populate user details
+      .populate({
+        path: 'comments.user', // Populate user details within comments
+        select: 'username', // Include only username in the comments
+      });
+
+    // Send the posts back to the frontend directly
+    res.status(200).json({ posts: userPosts });
+  } catch (error) {
+    console.error('Error fetching user posts:', error.message);
+    res.status(500).json({ message: 'Failed to fetch posts for the user.' });
+  }
+});
+
+
 
 module.exports = router;

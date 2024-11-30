@@ -107,3 +107,38 @@ button {
     flex-direction: column;
     align-items: center;
 }
+
+.my-posts-btn {
+    background-color: #3b82f6; /* Blue for distinction */
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.my-posts-btn:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+}
+
+.profile-posts img {
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.profile-posts ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.profile-posts li {
+    background-color: #333;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
