@@ -1,0 +1,18 @@
+.ribbon {
+    margin-bottom: 30px;
+}
+
+.ribbon-button {
+    margin-right: 8px;
+}
+
+.posts-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.posts-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
