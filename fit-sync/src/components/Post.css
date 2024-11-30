@@ -5,10 +5,11 @@
     border-radius: 8px;
     background-color: #424242;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 334px;
 }
 
 .post-image {
-    width: 100%;
+    width: 300px;
     height: auto;
     border-radius: 8px;
 }
@@ -17,6 +18,8 @@
     margin: 12px 0;
     font-size: 16px;
     color: #FF6D00;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .like-button, .comment-button {
