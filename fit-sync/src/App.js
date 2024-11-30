@@ -7,6 +7,7 @@ import IndexFront from './components/IndexFront';
 import LogIn from './components/LogIn';
 import Profile from './components/Profile';
 import SignUp from './components/SignUp';
+import CreateGoal from './components/CreateGoal';
 import CreatePost from './components/CreatePost';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/creategoal" element={<CreateGoal />} />
             <Route path="/createPost" element={<CreatePost />} />
           </Routes>
         </Router>

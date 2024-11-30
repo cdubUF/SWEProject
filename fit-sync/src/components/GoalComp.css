@@ -1,26 +1,30 @@
 .goal-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
     justify-content: center; 
-    height: 100%;
+    width: 100%;
     text-align: center;
 }
 
 .goal-comp {
     border: 2px solid #FF6D00;
     border-radius: 8px;
-    padding: 8px;
+    padding: 10px;
     margin: 16px 0;
     background-color: transparent;
-    max-width: 200px;
+    min-width: 250px;
+    max-width: 300px;
+    flex: 0 1 calc(50% - 40px);
 }
 
 .goal-comp h2 {
     font-size: 1.2em;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .goal-comp p {
-    margin: 4px 0;
+    margin: 5px 0;
 }
 
 .goal-comp p strong {

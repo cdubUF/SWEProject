@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
-import './GoalComp.jsx';
+import { Link, Navigate } from 'react-router-dom';
 import GoalComp from './GoalComp.jsx';
 
 // Profile page for user
@@ -10,7 +9,7 @@ import GoalComp from './GoalComp.jsx';
 // Data for name, bio, profile picture, and follower count are fetched from a database
 
 function Profile() {
-    const { token } = useAuth();
+    const { user, token } = useAuth();
     const [isFollowing, setIsFollowing] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
 
@@ -25,27 +24,35 @@ function Profile() {
     
     useEffect(() => {
         const fetchUserData = async () => {
-            setUserData({
-                name: 'Jane Doe',
-                bio: 'Gym Brodie, I bench 285',
-                profileImg: 'https://picsum.photos/200', // Replace with actual or mongo db stuff
-            });
-            setFollowerCount(150); // follower count for now
-            
-            setGoals([
-                { id: 1, text: 'Complete React project' },
-                { id: 2, text: 'Reach 200 followers' } 
-            ]);
+            if (!user || !user.id) return;
 
-            
-            setPosts([
-                { id: 1, content: 'My first post!' },
-                { id: 2, content: 'Another exciting update!' }
-            ]);
+            try {
+                const goalsResponse = await fetch(`http://localhost:5000/api/users/${user.id}/goals`);
+                if (goalsResponse.ok) {
+                    const goalsData = await goalsResponse.json();
+                    setGoals(goalsData);
+                }
+
+                // Fetch user data from database
+                setUserData({
+                    name: user.username,
+                    bio: 'Gym Brodie, I bench 285',
+                    profileImg: 'https://picsum.photos/200', // Replace with actual or mongo db stuff
+                });
+                setFollowerCount(150); // follower count for now
+                
+                // Fetch posts from database
+                setPosts([
+                    { id: 1, content: 'My first post!' },
+                    { id: 2, content: 'Another exciting update!' }
+                ]);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
         };
 
         fetchUserData();
-    }, []);
+    }, [user]);
 
     const handleFollowToggle = () => {
         setIsFollowing(!isFollowing);
@@ -72,13 +79,20 @@ function Profile() {
                 </button>
                 
                 <button className="message-btn">Message</button>
-                <button className="goals-btn">Create Goals</button>
+                <Link to="/profile/creategoal"><button className="goals-btn">Create Goals</button></Link>
+                
             </div>
 
             <div className="profile-goals">
                 <h2>Goals</h2>
                 <div className="goal-container">
-                {goals.length > 0 ? <GoalComp /> : <p>No goals set yet.</p>}  
+                    {goals.length > 0 ? (
+                        goals.map(goal => (
+                            <GoalComp key={goal.id} title={goal.title} description={goal.description} dueDate={goal.dueDate} />
+                        ))
+                    ) : (
+                        <p>No goals yet.</p>
+                    )}
                 </div>
             </div>
 

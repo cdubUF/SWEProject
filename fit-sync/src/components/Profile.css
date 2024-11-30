@@ -47,6 +47,7 @@ button {
 
 .profile-page {
     max-width: 600px;
+    height: 500px; /* Band-aid fix for profile page overflow issue */
     margin: 0 auto;
     padding: 20px;
 }
@@ -79,6 +80,7 @@ button {
 
 .profile-goals, .profile-posts {
     margin-top: 20px;
+    width: 100%;
 }
 
 .profile-goals h2, .profile-posts h2 {
