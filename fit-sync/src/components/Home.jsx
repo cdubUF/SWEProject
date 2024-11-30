@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, Navigate } from 'react-router-dom';
 import Post from './Post';
-import './Home.css'; // Make sure to create a corresponding CSS file for styling
+import './Home.css';
 
 import image1 from './images/airfriedpotatoes.jpg';
 import image2 from './images/jumpingrope.png';
