@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate , Navigate} from 'react-router-dom';
 import './CreatePost.css';
 
 function CreatePost() { // Accept userId as a prop
@@ -10,6 +11,7 @@ function CreatePost() { // Accept userId as a prop
     const [caption, setCaption] = useState('');
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -19,7 +21,7 @@ function CreatePost() { // Accept userId as a prop
                 setFile(selectedFile);
                 setMessage('');
             } else {
-                setMessage('Invalid file type. Please upload a PDF, PNG, or JPEG file.');
+                setMessage('Invalid file type. Please upload a PNG file.');
                 setFile(null);
             }
         }
@@ -52,6 +54,7 @@ function CreatePost() { // Accept userId as a prop
                 setMessage('Post created successfully!');
                 setCaption('');
                 setFile(null);
+                setTimeout(() => navigate('/profile'), 1500);
             } else {
                 const data = await response.json();
                 setMessage(data.message || 'Failed to create post.');
@@ -81,7 +84,7 @@ function CreatePost() { // Accept userId as a prop
             <div className="file-upload-container">
                 <input
                     type="file"
-                    accept=".pdf, .png, .jpeg"
+                    accept=".png"
                     onChange={handleFileChange}
                 />
             </div>

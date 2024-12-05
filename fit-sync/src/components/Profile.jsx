@@ -101,8 +101,8 @@ function Profile() {
                 <button onClick={handleFollowToggle} className="follow-btn">
                     {isFollowing ? 'Unfollow' : 'Follow'}
                 </button>
-                
-                <button className="message-btn">Message</button>
+            
+                <Link to="/createPost"><button className="posts-btn">Create Post</button></Link>
                 <Link to="/profile/creategoal"><button className="goals-btn">Create Goals</button></Link>
 
                 {/* My Posts button */}
@@ -127,7 +127,7 @@ function Profile() {
             {/* Posts section */}
             {showPosts && (
                 <div className="profile-posts">
-                    <h2>My Posts</h2>
+                    {/* <h2>My Posts</h2> */}
                     {loadingPosts ? (
                         <p>Loading posts...</p>
                     ) : postError ? (
@@ -141,12 +141,12 @@ function Profile() {
                                          alt={post.caption}
                                          style={{
                                             maxWidth: '100%',
-                                            height: 'auto',
+                                            height: '240px',
+                                            width: '240px',
                                             display: 'block',
                                             margin: '10px auto',
                                             borderRadius: '5px',
                                             }}/>
-                                    <p>Likes: {post.likesCount} | Comments: {post.commentsCount}</p>
                                 </li>
                             ))}
                         </ul>

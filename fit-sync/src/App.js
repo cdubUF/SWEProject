@@ -10,6 +10,7 @@ import SignUp from './components/SignUp';
 import CreateGoal from './components/CreateGoal';
 import CreatePost from './components/CreatePost';
 
+
 function App() {
   // here 
   return (
@@ -24,6 +25,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/creategoal" element={<CreateGoal />} />
             <Route path="/createPost" element={<CreatePost />} />
+
+
           </Routes>
         </Router>
       </div>
